@@ -13,13 +13,47 @@ const min = document.querySelector('[data-minutes]');
 const sec = document.querySelector('[data-seconds]');
 
 
+function styleBtnInputOff(s) {
+  switch (s) {
+    case btnStart:
+      btnStart.style.backgroundColor = '#cfcfcf';
+      btnStart.style.color = '#989898';
+      btnStart.style.cursor = 'auto';
+      break;
+
+    case inputClock:
+      inputClock.style.backgroundColor = '#FAFAFA';
+      inputClock.style.color = '#808080';
+      inputClock.style.cursor = 'auto';
+      inputClock.style.borderColor = '#808080';
+      break;
+  }
+}
+
+function styleBtnInputOn(s) {
+  switch (s) {
+    case btnStart:
+      btnStart.style.backgroundColor = null;
+      btnStart.style.color = null;
+      btnStart.style.cursor = 'pointer';
+      break;
+
+    case inputClock:
+      inputClock.style.backgroundColor = null;
+      inputClock.style.color = null;
+      inputClock.style.cursor = 'pointer';
+      inputClock.style.borderColor = null;
+      break;
+  }
+}
+
 flatpickr(inputClock, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    validateSelectedDate(selectedDates[0]);
   },
 });
 
@@ -57,8 +91,8 @@ function onBtnStartClick() {
   btnStart.disabled = true;
   styleBtnInputOff(btnStart);
 
-  inpitCloakk.disabled = true;
-  styleBtnInputOff(inputCloak);
+  inputClock.disabled = true;
+  styleBtnInputOff(inputClock);
 
   const clockValue = inputClock.value;
 
@@ -76,7 +110,7 @@ function onBtnStartClick() {
     clearInterval(timerInt);
 
     inputClock.disabled = false;
-    styleBtnInputOn(inputCloak);
+    styleBtnInputOn(inputClock);
 
   }
   }, 1000);
@@ -106,36 +140,3 @@ function addLeadingZero(value) {
 }
 //--
 
-function styleBtnInputOff(s) {
-  switch (s) {
-    case btnStart:
-      btnStart.style.backgroundColor = '#cfcfcf';
-      btnStart.style.color = '#989898';
-      btnStart.style.cursor = 'auto';
-      break;
-
-    case inputClock:
-      inputClock.style.backgroundColor = '#FAFAFA';
-      inputClock.style.color = '#808080';
-      inputClock.style.cursor = 'auto';
-      inputClock.style.borderColor = '#808080';
-      break;
-  }
-}
-
-function styleBtnInputOn(s) {
-  switch (s) {
-    case btnStart:
-      btnStart.style.backgroundColor = null;
-      btnStart.style.color = null;
-      btnStart.style.cursor = 'pointer';
-      break;
-
-    case inputClock:
-      inputClock.style.backgroundColor = null;
-      inputClock.style.color = null;
-      inputClock.style.cursor = 'pointer';
-      inputClock.style.borderColor = null;
-      break;
-  }
-}
