@@ -5,7 +5,7 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
-const inputClock = document.querySelector('#datetime-picker');
+const inputClock = document.getElementById('datetime-picker');
 const btnStart = document.querySelector('button[data-start]');
 const day = document.querySelector('[data-days]');
 const hour = document.querySelector('[data-hours]');
@@ -88,13 +88,15 @@ function validateSelectedDate(selectedDate) {
 btnStart.addEventListener('click', onBtnStartClick);
 
 function onBtnStartClick() {
+  const intervalDelay = 1000;
+
   btnStart.disabled = true;
   styleBtnInputOff(btnStart);
 
   inputClock.disabled = true;
   styleBtnInputOff(inputClock);
 
-  const clockValue = inputClock.value;
+  const clockValue = inputClock.value || new Date();
 
   const timerInt = setInterval(() => {
     const initDate = new Date(clockValue);
@@ -106,14 +108,14 @@ function onBtnStartClick() {
   min.textContent = addLeadingZero(minutes);
   sec.textContent = addLeadingZero(seconds);
 
-  if (diffTime < 1000) {
+  if (diffTime < intervalDelay) {
     clearInterval(timerInt);
 
     inputClock.disabled = false;
     styleBtnInputOn(inputClock);
 
   }
-  }, 1000);
+  }, intervalDelay);
 }
 
 function convertMs(ms) {
